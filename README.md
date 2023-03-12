@@ -83,8 +83,8 @@ After you've made sure to have the correct things (and versions) installed, you
 should be able to just run a few commands to get set up:
 
 ```shell
-git clone https://github.com/kentcdodds/advanced-react-patterns.git
-cd advanced-react-patterns
+git clone https://github.com/kentcdodds/epic-advanced-react-patterns.git
+cd epic-advanced-react-patterns
 node setup
 ```
 
