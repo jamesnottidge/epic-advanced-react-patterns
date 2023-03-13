@@ -79,6 +79,13 @@ function useUser() {
 
 // export {UserProvider, useUser}
 
+const updateUser = (user, dispatch, updates) => {
+  dispatch({type: 'start update', updates: updates})
+  userClient.updateUser(user, updates).then(
+    updatedUser => dispatch({type: 'finish update', updatedUser}),
+    error => dispatch({type: 'error', error}),
+  )
+}
 // src/screens/user-profile.js
 // import {UserProvider, useUser} from './context/user-context'
 function UserSettings() {
@@ -88,7 +95,6 @@ function UserSettings() {
   const isRejected = status === 'rejected'
 
   const [formState, setFormState] = React.useState(user)
-
   const isChanged = !dequal(user, formState)
 
   function handleChange(e) {
@@ -98,11 +104,7 @@ function UserSettings() {
   function handleSubmit(event) {
     event.preventDefault()
     // 🐨 move the following logic to the `updateUser` function you create above
-    userDispatch({type: 'start update', updates: formState})
-    userClient.updateUser(user, formState).then(
-      updatedUser => userDispatch({type: 'finish update', updatedUser}),
-      error => userDispatch({type: 'fail update', error}),
-    )
+    updateUser(user, userDispatch, formState)
   }
 
   return (
